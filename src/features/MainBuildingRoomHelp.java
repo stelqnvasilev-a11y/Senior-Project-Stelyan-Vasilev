@@ -11,9 +11,12 @@ public class MainBuildingRoomHelp {
     }
 
     public void run() {
-        System.out.println("=== Main Building: Room Navigation ===");
-        System.out.println("This feature is coming next.");
-        System.out.println();
+        System.out.println("... Main Building: Room Navigation ...");
+
+        System.out.println("Which room are you looking for? ");
+        String input = sc.nextLine();
+        String result = RoomSelector.getFloorRoomNumber(input);
+        System.out.println(result);
         System.out.print("Press ENTER to go back to the menu...");
         sc.nextLine();
     }

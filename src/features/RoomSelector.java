@@ -1,3 +1,5 @@
+package features;
+
 import java.util.Scanner;
 public class RoomSelector {
 
@@ -11,20 +13,11 @@ public class RoomSelector {
         }
         int floor;
         //If the room number is 1 digit ( or if it has a letter (like our 4a and 4b))//
-        if (room.length()==1 || (room.length() == 2 && Character.isLetter(room.charAt(1)))){
+        if (room.length() == 1 || (room.length() == 2 && Character.isLetter(room.charAt(1)))) {
             floor = 1;
         } else {
             floor = Character.getNumericValue(room.charAt(0));
         }
         return "Room " + room + " is on Floor " + floor;
-    }
-
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("What room are you looking for in Main Building");
-        String input = sc.nextLine();
-        System.out.println(getFloorRoomNumber(input));
-        sc.close();
-
     }
 }

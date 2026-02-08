@@ -27,7 +27,7 @@ public class MainMenu {
     }
 
     private void printMenu() {
-        System.out.println("=== UNIVERSITY GUIDE ===");
+        System.out.println("... UNIVERSITY GUIDE ...");
         System.out.println("1) I need help to get to my room in Main Building");
         System.out.println("0) Exit");
     }
