@@ -2,7 +2,7 @@ package features;
 
 import java.util.Scanner;
 
-public class MainBuildingRoomHelp {
+public class MainBuildingRoomHelp extends RoomSelector{
 
     private final Scanner sc;
 
