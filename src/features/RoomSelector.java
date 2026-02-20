@@ -8,7 +8,7 @@ public class RoomSelector {
 
         if (!room.matches("\\d{1,4}[A-Za-z]?")) {
             return "Invalid format of the room, it can only consist of up to 4 digits and 1 letter max";
-        } else if (room.contentEquals("Red Room")) {
+        } else if (room.contentEquals("Red_Room")) {
             return "The Red Room is at the 4th floor";
         }
         int floor;
