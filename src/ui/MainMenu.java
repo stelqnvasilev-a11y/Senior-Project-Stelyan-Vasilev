@@ -15,10 +15,14 @@ public class MainMenu {
 
             switch (choice) {
                 case 1 -> new MainBuildingRoomHelp(sc).run();
+
+                case 2 -> new CoursePlannerMenu(sc).run();
+
                 case 0 -> {
                     System.out.println("Goodbye!");
                     return;
                 }
+
                 default -> System.out.println("Invalid option. Try again.");
             }
 
@@ -29,6 +33,7 @@ public class MainMenu {
     private void printMenu() {
         System.out.println("... UNIVERSITY GUIDE ...");
         System.out.println("1) I need help to get to my room in Main Building");
+        System.out.println("2) Show valid course order");
         System.out.println("0) Exit");
     }
 

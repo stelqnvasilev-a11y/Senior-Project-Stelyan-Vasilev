@@ -8,7 +8,7 @@ import java.util.*;
 public class CourseGraph {
     // Stores all courses by code
     private final Map<String, Course> courses = new HashMap<>();
-    private final Map<String, List<String>> adjacency = new HashMap<>(); // Adjacency list: prerequisite -> list of courses depending on it
+    private final Map<String, List<String>> adjacency = new HashMap<>(); // Adjacency list: prerequisite - list of courses depending on it
     private final Map<String, Integer> indegree = new HashMap<>(); // this stores how many prerequisites each course has
     public void addCourse(Course course) {
         courses.putIfAbsent(course.getCode(), course);
