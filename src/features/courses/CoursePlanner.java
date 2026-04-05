@@ -16,10 +16,6 @@ public class CoursePlanner {
     }
 
     public void run() {
-        System.out.println("... COURSE PLANNER ...");
-        System.out.println("Generating a valid course order...");
-        System.out.println();
-
         try {
             CourseGraph graph = CourseLoader.loadGraph(
                     "src/data/courses.csv",
@@ -29,14 +25,38 @@ public class CoursePlanner {
 
             List<String> order = KahnsAlgorithm.topologicalSort(graph);
 
+            System.out.println("... COURSE PLAN ...");
+            System.out.println("Valid order of courses:");
+            System.out.println();
+
+            String previousLevel = "";
+
             for (int i = 0; i < order.size(); i++) {
+
                 String code = order.get(i);
                 Course course = graph.getCourses().get(code);
 
-                if (course != null) {
-                    System.out.print((i + 1) + ". " + course.getCode() + " - " + course.getName());
+                // determine level (1xxx, 2xxx, etc.)
+                String level = "";
+                if (code.length() >= 4) {
+                    char year = code.charAt(3);
+                    switch (year) {
+                        case '1' -> level = "FOUNDATION";
+                        case '2' -> level = "INTERMEDIATE";
+                        case '3' -> level = "ADVANCED";
+                        case '4' -> level = "FINAL";
+                    }
+                }
 
-                    // show conditions if they exist
+                // print level title only when it changes
+                if (!level.equals(previousLevel)) {
+                    System.out.println("[" + level + "]");
+                    previousLevel = level;
+                }
+
+                if (course != null) {
+                    System.out.print("- " + course.getCode() + " - " + course.getName());
+
                     List<String> conditions = graph.getConditions().get(code);
                     if (conditions != null && !conditions.isEmpty()) {
                         System.out.print(" (Condition: " + String.join(", ", conditions) + ")");
@@ -44,7 +64,7 @@ public class CoursePlanner {
 
                     System.out.println();
                 } else {
-                    System.out.println((i + 1) + ". " + code);
+                    System.out.println("- " + code);
                 }
             }
 

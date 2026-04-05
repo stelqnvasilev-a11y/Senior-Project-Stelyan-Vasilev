@@ -12,7 +12,18 @@ public class KahnsAlgorithm {
         Map<String, Integer> indegreeCopy = new HashMap<>(); // creates a copy of the indegree map from CourseGraph because Khan will change the values.
         indegreeCopy.putAll(graph.getIndegree());
 
-        Queue<String> queue = new LinkedList<>();// create a queue since Khan is doing it recursivelly from 0
+        // Priority queue: lower-level courses come first
+        PriorityQueue<String> queue = new PriorityQueue<>((a, b) -> {
+            int levelA = getLevel(a);
+            int levelB = getLevel(b);
+
+            if (levelA != levelB) {
+                return Integer.compare(levelA, levelB);
+            }
+
+            return a.compareTo(b);
+        });
+
         List<String> result = new ArrayList<>(); // this "result" will keep the final valid order
 
         // Add all courses with no prerequisites
@@ -45,5 +56,17 @@ public class KahnsAlgorithm {
         }
 
         return result;
+    }
+    private static int getLevel(String code) {
+        if (code != null && code.length() >= 4) {
+            char year = code.charAt(3);
+
+            if (Character.isDigit(year)) {
+                return Character.getNumericValue(year);
+            }
+        }
+
+        // fallback value in case of unexpected format or unexpected course. This will place it at the end of the ordering.
+        return Integer.MAX_VALUE;
     }
 }
