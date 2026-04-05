@@ -1,6 +1,7 @@
 package ui;
 
 import features.MainBuildingRoomHelp;
+import features.courses.CoursePlanner;
 
 import java.util.Scanner;
 
@@ -16,7 +17,7 @@ public class MainMenu {
             switch (choice) {
                 case 1 -> new MainBuildingRoomHelp(sc).run();
 
-                case 2 -> new CoursePlannerMenu(sc).run();
+                case 2 -> new CoursePlanner(sc).run();
 
                 case 0 -> {
                     System.out.println("Goodbye!");
