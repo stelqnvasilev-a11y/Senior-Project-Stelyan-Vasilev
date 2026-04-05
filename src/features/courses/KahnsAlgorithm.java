@@ -9,24 +9,24 @@ public class KahnsAlgorithm {
 
     public static List<String> topologicalSort(CourseGraph graph) {
 
-        Map<String, Integer> indegreeCopy = new HashMap<>();
+        Map<String, Integer> indegreeCopy = new HashMap<>(); // creates a copy of the indegree map from CourseGraph because Khan will change the values.
         indegreeCopy.putAll(graph.getIndegree());
 
-        Queue<String> queue = new LinkedList<>();
-        List<String> result = new ArrayList<>();
+        Queue<String> queue = new LinkedList<>();// create a queue since Khan is doing it recursivelly from 0
+        List<String> result = new ArrayList<>(); // this "result" will keep the final valid order
 
         // Add all courses with no prerequisites
-        for (String code : indegreeCopy.keySet()) {
-            if (indegreeCopy.get(code) == 0) {
-                queue.add(code);
+        for (String code : indegreeCopy.keySet()) { // go through all the courses.
+            if (indegreeCopy.get(code) == 0) { //check and therefore get the courses with indg of 0
+                queue.add(code); // add them to the queue
             }
         }
 
-        while (!queue.isEmpty()) {
-            String current = queue.poll();
-            result.add(current);
+        while (!queue.isEmpty()) { // the system goes until the queue is empty
+            String current = queue.poll(); // takes the first course from queue
+            result.add(current); // ads it to the final valid order
 
-            List<String> neighbors = graph.getAdjacency().get(current);
+            List<String> neighbors = graph.getAdjacency().get(current); // then we take all the courses that depend on "Current" course-> adjacency=neighbors
 
             if (neighbors != null) {
                 for (String next : neighbors) {
