@@ -57,7 +57,7 @@ public class KahnsAlgorithm {
 
         return result;
     }
-    private static int getLevel(String code) {
+    private static int getLevel(String code) { //helper method for levels
         if (code != null && code.length() >= 4) {
             char year = code.charAt(3);
 
