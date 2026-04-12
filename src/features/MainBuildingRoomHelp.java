@@ -12,34 +12,72 @@ public class MainBuildingRoomHelp {
     }
 
     public void run() {
-        System.out.println(" Main Building: Room Navigation ");
+        System.out.println(" Main Building Navigation ");
+        System.out.println("1. Find route from Entrance to a room");
+        System.out.println("2. Find route from one room to another room");
+        System.out.print("Choose option: ");
 
-        // 1) Read room input
+        String choice = sc.nextLine().trim();
+
+        switch (choice) {
+            case "1":
+                routeFromEntrance();
+                break;
+            case "2":
+                routeBetweenRooms();
+                break;
+            default:
+                System.out.println("Invalid option.");
+                System.out.println();
+                System.out.print("Press ENTER to go back to the menu...");
+                sc.nextLine();
+        }
+    }
+
+    private void routeFromEntrance() {
         System.out.print("Which room are you looking for? ");
-        String input = sc.nextLine();
+        String input = sc.nextLine().trim().toUpperCase();
 
-        // 2) Validate input format using RoomSelector
-        String validation = RoomSelector.getFloorRoomNumber(input);
-        if (validation.toLowerCase().startsWith("invalid")) {
-            System.out.println(validation);
-            System.out.println();
-            System.out.print("Press ENTER to go back to the menu...");
-            sc.nextLine();
+        if (input.isEmpty()) {
+            System.out.println("Room cannot be empty.");
+            goBack();
             return;
         }
 
-        // 3) Normalize room code (e.g., "4b" -> "4B")
-        String roomCode = input.trim().toUpperCase();
+        List<String> steps = RoomPathFinder.findFastestRouteInMainBuilding(input);
 
-        // 4) Call the A* pathfinder
-        List<String> steps = RoomPathFinder.findFastestRouteInMainBuilding(roomCode);
+        printSteps(steps);
+        goBack();
+    }
 
-        // 5) Print the result
-        for (String line : steps) {
-            System.out.println(line);
+    private void routeBetweenRooms() {
+        System.out.print("Enter the starting room: ");
+        String startRoom = sc.nextLine().trim().toUpperCase();
+
+        System.out.print("Enter the destination room: ");
+        String endRoom = sc.nextLine().trim().toUpperCase();
+
+        if (startRoom.isEmpty() || endRoom.isEmpty()) {
+            System.out.println("Both rooms must be entered.");
+            goBack();
+            return;
         }
 
-        // 6) Back to menu
+        List<String> steps = RoomPathFinder.findRouteBetweenRooms(startRoom, endRoom);
+
+        printSteps(steps);
+        goBack();
+    }
+
+    private void printSteps(List<String> steps) {
+        System.out.println();
+
+        for (String step : steps) {
+            System.out.println(step);
+        }
+    }
+
+    private void goBack() {
         System.out.println();
         System.out.print("Press ENTER to go back to the menu...");
         sc.nextLine();
