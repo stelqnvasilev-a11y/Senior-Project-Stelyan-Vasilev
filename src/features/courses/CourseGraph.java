@@ -9,7 +9,8 @@ public class CourseGraph {
     // Stores all courses by code
     private final Map<String, Course> courses = new HashMap<>();
     private final Map<String, List<String>> adjacency = new HashMap<>(); // Adjacency list: prerequisite - list of courses depending on it
-    private final Map<String, Integer> indegree = new HashMap<>(); // this stores how many prerequisites each course has
+    private final Map<String, Integer> indegree = new HashMap<>();// this stores how many prerequisites each course has
+    private final Map<String, List<String>> majors = new HashMap<>();
 
     private final Map<String, List<String>> conditions = new HashMap<>(); //stores the conditions for the courses such as Senior Standing
     public void addCourse(Course course) {
@@ -17,6 +18,7 @@ public class CourseGraph {
         adjacency.putIfAbsent(course.getCode(), new ArrayList<>());
         indegree.putIfAbsent(course.getCode(), 0); // Adds a course to the graph
         conditions.putIfAbsent(course.getCode(), new ArrayList<>());
+        majors.putIfAbsent(course.getCode(), new ArrayList<>());
 
 }
     /*
@@ -40,6 +42,10 @@ public class CourseGraph {
         conditions.putIfAbsent(courseCode, new ArrayList<>());
         conditions.get(courseCode).add(condition);
     }
+    public void addMajor(String courseCode, String major) {
+        majors.putIfAbsent(courseCode, new ArrayList<>());
+        majors.get(courseCode).add(major);
+    }
 
 
     //getters for other files to be able to use the data from Graph.java
@@ -58,5 +64,9 @@ public class CourseGraph {
 
     public Map<String, List<String>> getConditions() {
         return conditions;
+    }
+
+    public Map<String, List<String>> getMajors() {
+        return majors;
     }
 }

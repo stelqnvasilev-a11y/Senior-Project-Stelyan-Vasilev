@@ -20,7 +20,8 @@ public class CoursePlanner {
             CourseGraph graph = CourseLoader.loadGraph(
                     "src/data/courses.csv",
                     "src/data/prerequisites.csv",
-                    "src/data/conditions.csv"
+                    "src/data/conditions.csv",
+                    "src/data/majors.csv"
             );
 
             List<String> order = KahnsAlgorithm.topologicalSort(graph);

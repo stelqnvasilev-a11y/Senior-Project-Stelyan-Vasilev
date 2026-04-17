@@ -5,6 +5,8 @@ import features.courses.CoursePlanner;
 import features.courses.CoursePrerequisiteFinder;
 import features.courses.CourseGraph;
 import features.courses.CourseLoader;
+import features.courses.MajorProgressPlanner;
+
 import java.util.List;
 
 import java.util.Scanner;
@@ -25,6 +27,8 @@ public class MainMenu {
 
                 case 3 -> showPrerequisites();
 
+                case 4 -> new MajorProgressPlanner(sc).run();
+
                 case 0 -> {
                     System.out.println("Goodbye!");
                     return;
@@ -42,6 +46,7 @@ public class MainMenu {
         System.out.println("1) I need help to get to my room in Main Building");
         System.out.println("2) Show valid course order");
         System.out.println("3) Show prerequisites for a course");
+        System.out.println("4) Show major progress and planning");
         System.out.println("0) Exit");
     }
 
@@ -70,7 +75,8 @@ public class MainMenu {
             CourseGraph graph = CourseLoader.loadGraph(
                     "src/data/courses.csv",
                     "src/data/prerequisites.csv",
-                    "src/data/conditions.csv"
+                    "src/data/conditions.csv",
+                    "scr/data/majors.csv"
             );
 
             List<String> prereqs =

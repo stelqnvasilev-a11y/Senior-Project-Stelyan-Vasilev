@@ -6,11 +6,12 @@ import java.util.List;
 
 //this class will load courses and prerequisites from the csv files
 public class CourseLoader {
-    public static CourseGraph loadGraph(String coursesFile, String prerequisitesFile, String conditionsfile) throws IOException{
+    public static CourseGraph loadGraph(String coursesFile, String prerequisitesFile, String conditionsfile, String majorsFile) throws IOException{
         CourseGraph graph = new CourseGraph();
         loadCourses(graph, coursesFile);
         loadPrerequisites(graph, prerequisitesFile);
         loadConditions(graph, conditionsfile);
+        loadMajors(graph, majorsFile);
         return graph;
 
     }
@@ -75,6 +76,24 @@ public class CourseLoader {
             String condition = parts[1].trim();
 
             graph.addCondition(courseCode, condition);
+        }
+    }
+    private static void loadMajors(CourseGraph graph, String majorsFile) throws IOException {
+        List<String> lines = Files.readAllLines(Paths.get(majorsFile));
+
+        for (int i = 1; i < lines.size(); i++) {
+            String line = lines.get(i);
+
+            if (line.trim().isEmpty()) {
+                continue;
+            }
+
+            String[] parts = line.split(",", 2);
+
+            String major = parts[0].trim();
+            String courseCode = parts[1].trim();
+
+            graph.addMajor(courseCode, major);
         }
     }
 }
