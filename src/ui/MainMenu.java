@@ -76,23 +76,34 @@ public class MainMenu {
                     "src/data/courses.csv",
                     "src/data/prerequisites.csv",
                     "src/data/conditions.csv",
-                    "scr/data/majors.csv"
+                    "src/data/majors.csv"
             );
 
             List<String> prereqs =
                     CoursePrerequisiteFinder.getAllPrerequisites(graph, course);
 
             System.out.println();
-            System.out.println("Prerequisites for " + course + ":");
+            System.out.println("Requirements for " + course + ":");
+            boolean hasSomething = false;
 
-            if (prereqs.isEmpty()) {
-                System.out.println("No prerequisites found.");
-            } else {
+            if (!prereqs.isEmpty()) {
+                System.out.println("Course prerequisites:");
                 for (String p : prereqs) {
                     System.out.println("- " + p);
                 }
+                hasSomething = true;
             }
-
+            List<String> conditions = graph.getConditions().get(course);
+            if(conditions!= null && !conditions.isEmpty()){
+                System.out.println("Additional conditions:");
+                for (String c : conditions) {
+                    System.out.println("- " + c);
+                }
+                hasSomething = true;
+            }
+            if (!hasSomething){
+                System.out.println("No prerequisites or conditions found.");
+            }
         } catch (Exception e) {
             System.out.println("Error loading data: " + e.getMessage());
         }
